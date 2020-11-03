@@ -31,8 +31,8 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://dev.crowdcode.io/bitbucket/scm/hslb/lbds-http</connection>
-        <developerConnection>scm:svn:https://dev.crowdcode.io/bitbucket/scm/scm/hslb/lbds-http
+        <connection>scm:git:https://github.com/crowdcode-de/lbds-http</connection>
+        <developerConnection>scm:svn:https://github.com/crowdcode-de/lbds-http
         </developerConnection>
     </scm>
 
