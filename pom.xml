@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project xmlns="http://maven.apache.org/POM/4.0.0"
-                                                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                                               xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.crowdcode.sormas.lbds</groupId>
@@ -115,8 +116,16 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
 
+    <profiles>
+        <profile>
+            <id>linux</id>
+            <properties>
+                <platform.version>4.0.1.2</platform.version>
+                <android.sdk.path>/opt/android-sdk-linux</android.sdk.path>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            </properties>
+        </profile>
         <profile>
             <id>sign-jar</id>
             <build>

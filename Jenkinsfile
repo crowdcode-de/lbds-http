@@ -42,7 +42,7 @@ pipeline {
         stage('Build') {
             agent { label 'jenkins-android-24' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps {  mvn("clean install -DskipTests=true") }
+            steps {  mvn("clean -P linux install -DskipTests=true") }
         }
         stage('Unit tests') {
             agent { label 'jenkins-android-24' }
