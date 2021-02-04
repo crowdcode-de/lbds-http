@@ -104,7 +104,7 @@
             <id>linux</id>
             <properties>
                 <platform.version>4.0.1.2</platform.version>
-                <android.sdk.path>/usr/java/adt-bundle-linux-x86_64/sdk</android.sdk.path>
+                <android.sdk.path>/opt/android-sdk-linux</android.sdk.path>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
             </properties>
 

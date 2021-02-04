@@ -40,22 +40,22 @@ pipeline {
             }
         }
         stage('Build') {
-            agent { label 'jenkins-android-24' }
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps {  mvn("clean install -DskipTests=true") }
         }
         stage('Unit tests') {
-            agent { label 'jenkins-android-24' }
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("test -P-checks,test-coverage -Dskip.unit.tests=false -Dskip.integration.tests=true") }
         }
         stage('Integration tests') {
-            agent { label 'jenkins-android-24' }
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("verify -P-checks,test-coverage -Dskip.unit.tests=true -Dskip.integration.tests=false") }
         }
         stage('Deploy') {
-            agent { label 'jenkins-android-24' }
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("deploy -P-checks -DskipTests=true ") }
         }
