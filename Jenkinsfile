@@ -88,6 +88,6 @@ def mvn(param) {
       options: [openTasksPublisher(disabled: true)],
       mavenOpts: '-Xmx1536m -Xms512m',
       maven: 'maven-3.6.0') {
-	    sh "mvn -U -B -e ${param}"
+	    sh "mvn -U -B -e ${param} -f pom-aar.xml"
       }
 }
