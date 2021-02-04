@@ -42,7 +42,7 @@ pipeline {
         stage('Build') {
             agent { label 'jenkins-android-24' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps {  mvn("clean -P linux install -DskipTests=true") }
+            steps {  mvn("clean install -DskipTests=true") }
         }
         stage('Unit tests') {
             agent { label 'jenkins-android-24' }
@@ -88,6 +88,6 @@ def mvn(param) {
       options: [openTasksPublisher(disabled: true)],
       mavenOpts: '-Xmx1536m -Xms512m',
       maven: 'maven-3.6.0') {
-	    sh "mvn -U -B -e ${param} -f pom-aar.xml"
+	    sh "mvn -U -B -e -P linux ${param} -f pom-aar.xml"
       }
 }
