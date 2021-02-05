@@ -42,17 +42,17 @@ pipeline {
         stage('Build jar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps {  mvn("clean install -DskipTests=true") }
+            steps {  mvn("clean install") }
         }
         stage('Deploy jar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("deploy -DskipTests=true ") }
+            steps { mvn("deploy -DskipTests=true") }
         }
         stage('Build aar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps {  mvn("clean install -DskipTests=true -f pom-aar.xml") }
+            steps {  mvn("clean install -f pom-aar.xml") }
         }
         stage('Deploy aar') {
             agent { label 'jenkins-android-23' }
