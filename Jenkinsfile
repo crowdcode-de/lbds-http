@@ -39,25 +39,25 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Build jar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps {  mvn("clean install -DskipTests=true") }
         }
-        stage('Unit tests') {
+        stage('Deploy jar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("test -P-checks,test-coverage -Dskip.unit.tests=false -Dskip.integration.tests=true") }
+            steps { mvn("deploy -DskipTests=true ") }
         }
-        stage('Integration tests') {
+        stage('Build aar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("verify -P-checks,test-coverage -Dskip.unit.tests=true -Dskip.integration.tests=false") }
+            steps {  mvn("clean install -DskipTests=true -f pom-aar.xml") }
         }
-        stage('Deploy') {
+        stage('Deploy aar') {
             agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("deploy -P-checks -DskipTests=true ") }
+            steps { mvn("deploy -DskipTests=true -f pom-aar.xml") }
         }
         /* stage('build and deploy docker') {
             agent { label 'master' }
@@ -88,6 +88,6 @@ def mvn(param) {
       options: [openTasksPublisher(disabled: true)],
       mavenOpts: '-Xmx1536m -Xms512m',
       maven: 'maven-3.6.0') {
-	    sh "mvn -U -B -e -P linux ${param} -f pom-aar.xml"
+	    sh "mvn -U -B -e -P linux ${param}"
       }
 }
