@@ -16,7 +16,7 @@ pipeline {
             agent { label 'master' }
             steps {
                 withCredentials(
-                        [usernamePassword(credentialsId: 'crowdcodeBitbucket',
+                        [usernamePassword(credentialsId: 'CSchemmy',
                                 usernameVariable: 'gitUser',
                                 passwordVariable: 'gitPwd'
                         )]) {
