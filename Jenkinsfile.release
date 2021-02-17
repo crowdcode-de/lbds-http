@@ -38,7 +38,7 @@ pipeline {
         }
         stage('trigger jobs') {
             steps {
-               build job: "../lbds-http", wait: false, propagate: false
+               build job: 'lbds-http', wait: false
             }
         }
     }
