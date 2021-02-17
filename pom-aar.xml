@@ -5,10 +5,10 @@
 
     <groupId>io.crowdcode.sormas.lbds</groupId>
     <artifactId>lbds-http-android</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>aar</packaging>
 
-    <name>lbds-http</name>
+    <name>lbds-http-android</name>
     <url>http://maven.apache.org</url>
 
     <description>LDBS-SORMAS Http Objects</description>
@@ -104,7 +104,7 @@
             <id>linux</id>
             <properties>
                 <platform.version>4.0.1.2</platform.version>
-                <android.sdk.path>/usr/java/adt-bundle-linux-x86_64/sdk</android.sdk.path>
+                <android.sdk.path>/opt/android-sdk-linux</android.sdk.path>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
             </properties>
 
@@ -124,7 +124,7 @@
             <id>mac</id>
             <properties>
                 <platform.version>4.0.1.2</platform.version>
-                <android.sdk.path>/Users/heiko/Library/Android/sdk</android.sdk.path>
+                <android.sdk.path>${user.home}/Library/Android/sdk</android.sdk.path>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
             </properties>
         </profile>
@@ -183,7 +183,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <goals>

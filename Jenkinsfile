@@ -16,7 +16,7 @@ pipeline {
             agent { label 'master' }
             steps {
                 withCredentials(
-                        [usernamePassword(credentialsId: 'crowdcodeBitbucket',
+                        [usernamePassword(credentialsId: 'CSchemmy',
                                 usernameVariable: 'gitUser',
                                 passwordVariable: 'gitPwd'
                         )]) {
@@ -39,25 +39,25 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
-            agent { label 'master' }
+        stage('Build jar') {
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps {  mvn("clean install -DskipTests=true") }
+            steps {  mvn("clean install") }
         }
-        stage('Unit tests') {
-            agent { label 'master' }
+        stage('Deploy jar') {
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("test -P-checks,test-coverage -Dskip.unit.tests=false -Dskip.integration.tests=true") }
+            steps { mvn("deploy -DskipTests=true") }
         }
-        stage('Integration tests') {
-            agent { label 'master' }
+        stage('Build aar') {
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("verify -P-checks,test-coverage -Dskip.unit.tests=true -Dskip.integration.tests=false") }
+            steps {  mvn("clean install -f pom-aar.xml") }
         }
-        stage('Deploy') {
-            agent { label 'master' }
+        stage('Deploy aar') {
+            agent { label 'jenkins-android-23' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
-            steps { mvn("deploy -P-checks -DskipTests=true ") }
+            steps { mvn("deploy -DskipTests=true -f pom-aar.xml") }
         }
         /* stage('build and deploy docker') {
             agent { label 'master' }
@@ -88,6 +88,6 @@ def mvn(param) {
       options: [openTasksPublisher(disabled: true)],
       mavenOpts: '-Xmx1536m -Xms512m',
       maven: 'maven-3.6.0') {
-	    sh "mvn -U -B -e ${param} -f pom-aar.xml"
+	    sh "mvn -U -B -e -P linux ${param}"
       }
 }
