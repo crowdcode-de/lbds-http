@@ -36,6 +36,11 @@ pipeline {
                 }
             }
         }
+        stage('trigger jobs') {
+            steps {
+               build job: 'lbds-http', wait: false
+            }
+        }
     }
     post {
         always {
