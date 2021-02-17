@@ -40,38 +40,25 @@ pipeline {
             }
         }
         stage('Build jar') {
-            agent { label 'jenkins-android-23' }
+            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps {  mvn("clean install") }
         }
         stage('Deploy jar') {
-            agent { label 'jenkins-android-23' }
+            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("deploy -DskipTests=true") }
         }
         stage('Build aar') {
-            agent { label 'jenkins-android-23' }
+            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps {  mvn("clean install -f pom-aar.xml") }
         }
         stage('Deploy aar') {
-            agent { label 'jenkins-android-23' }
+            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("deploy -DskipTests=true -f pom-aar.xml") }
         }
-        /* stage('build and deploy docker') {
-            agent { label 'master' }
-            steps {
-                mvn("clean process-resources")
-                mvn("-f target/docker/build-docker-pom.xml clean  process-resources dockerfile:build ")
-                mvn("-f target/docker/build-docker-pom.xml dockerfile:push ")
-            }
-        }
-        stage('trigger jobs') {
-            steps {
-               build job: "../hsmrt-deployment/${env.BRANCH_NAME.replaceAll('\\/','%2F')}", wait: false, propagate: false
-            }
-        } */
     }
 }
 def mvn(param) {
