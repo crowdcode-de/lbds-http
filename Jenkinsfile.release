@@ -25,7 +25,7 @@ pipeline {
                     mvn("com.amashchenko.maven.plugin:gitflow-maven-plugin:release-start")
                     pom = readMavenPom file: 'pom.xml'
                     mvn ("build-helper:parse-version versions:set -DnewVersion=${pom.version} versions:commit -f pom-aar.xml")
-                    sh "git commit -a -m "Update aar versions for release"
+                    sh "git commit -a -m 'Update aar versions for release'"
                     mvn("com.amashchenko.maven.plugin:gitflow-maven-plugin:release-finish " + getVersionDigitToIncement())
                 }
             }
