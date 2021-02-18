@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent { label 'Android-SDK-Manager-gradle' }
     options {
         office365ConnectorWebhooks([[
                                             offsetNotification: true,
@@ -13,7 +13,6 @@ pipeline {
     }
     stages {
         stage('Prepare') {
-            agent { label 'master' }
             steps {
                 withCredentials(
                         [usernamePassword(credentialsId: 'CSchemmy',
@@ -47,41 +46,29 @@ pipeline {
             }
         }
         stage('Build jar') {
-            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps {  mvn("clean install") }
         }
         stage('Deploy jar') {
-            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("deploy -DskipTests=true") }
         }
         stage('Build aar') {
-            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps {  mvn("clean install -f pom-aar.xml") }
         }
         stage('Deploy aar') {
-            agent { label 'Android-SDK-Manager-gradle' }
             when {  environment name: "DO_NOT_BUILD", value: "false" }
             steps { mvn("deploy -DskipTests=true -f pom-aar.xml") }
         }
     }
 }
 def mvn(param) {
-  if ( readMavenPom().getVersion().contains("SNAPSHOT") ) {
-     env.docker_registry = "docker-snapshots.crowdcode.io"
-  }
-  else
-  {
-     env.docker_registry = "docker-release.crowdcode.io"
-  }
-  env.docker_registry_read = "docker-repo.crowdcode.io"
   withMaven(
       // globalMavenSettingsConfig: 'GlobalSettingsNexus',
       options: [openTasksPublisher(disabled: true)],
       mavenOpts: '-Xmx1536m -Xms512m',
-      maven: 'maven-3.6.0') {
+      maven: 'maven-3.6.3') {
 	    sh "mvn -U -B -e -P linux ${param}"
       }
 }
