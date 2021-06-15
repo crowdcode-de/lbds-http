@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class HttpContainer implements Serializable {
     final UUID id;
-    final HttpMethod httpMethod;
+    HttpMethod httpMethod;
     final HttpResult httpResult;
 
     public HttpContainer(UUID id, HttpMethod httpMethod, HttpResult httpResult) {
@@ -78,5 +78,7 @@ public class HttpContainer implements Serializable {
         return new Gson().fromJson(json, HttpContainer.class);
     }
 
-
+    public void setHttpMethod(HttpMethod httpMethod) {
+        this.httpMethod = httpMethod;
+    }
 }
