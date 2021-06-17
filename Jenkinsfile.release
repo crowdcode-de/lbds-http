@@ -55,7 +55,7 @@ pipeline {
     }
 }
 
-def getVersionDigitToIncement() {
+def getVersionDigitToIncrement() {
     if(params.versionDigitToIncrement == "major") {
         return "-DversionDigitToIncrement=0";
     } else if(params.versionDigitToIncrement == "minor") {
