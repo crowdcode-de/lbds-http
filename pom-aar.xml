@@ -3,7 +3,7 @@
 
     <groupId>io.crowdcode.sormas.lbds</groupId>
     <artifactId>lbds-http-android</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
     <packaging>aar</packaging>
 
     <name>lbds-http-android</name>
@@ -92,7 +92,7 @@
             <id>windows</id>
             <properties>
                 <platform.version>4.0.1.2</platform.version>
-                <android.sdk.path>C:\Users\marcu\AppData\Local\Android\Sdk</android.sdk.path>
+                <android.sdk.path>${user.home}\AppData\Local\Android\Sdk</android.sdk.path>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <docs.directory>C:/Temp/apidocs</docs.directory>
             </properties>
