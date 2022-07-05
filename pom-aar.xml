@@ -3,7 +3,7 @@
 
     <groupId>io.crowdcode.sormas.lbds</groupId>
     <artifactId>lbds-http-android</artifactId>
-    <version>1.2.10</version>
+    <version>1.2.11</version>
     <packaging>aar</packaging>
 
     <name>lbds-http-android</name>
