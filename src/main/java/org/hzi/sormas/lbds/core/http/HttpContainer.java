@@ -8,7 +8,7 @@ import java.util.UUID;
 public class HttpContainer implements Serializable {
     final UUID id;
     HttpMethod httpMethod;
-    final HttpResult httpResult;
+    HttpResult httpResult;
 
     public HttpContainer(UUID id, HttpMethod httpMethod, HttpResult httpResult) {
         this.id = id;
@@ -80,5 +80,9 @@ public class HttpContainer implements Serializable {
 
     public void setHttpMethod(HttpMethod httpMethod) {
         this.httpMethod = httpMethod;
+    }
+
+    public void setHttpResult(HttpResult httpResult) {
+        this.httpResult = httpResult;
     }
 }
